@@ -9,7 +9,8 @@ The Prerequisites need for installtion,
     4. Helm
     5. Trivy
 
-The Prerequisites needed can be installed and set through prerequisites.sh script file.
+The Prerequisites needed can be installed and set through prerequisites.sh script file. The
+script file is intended to use on debian/ubuntu based linux distribution.
 
 
 # Setup

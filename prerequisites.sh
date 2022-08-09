@@ -45,11 +45,6 @@ wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.
 sudo dpkg -i trivy_0.18.3_Linux-64bit.deb > /dev/null 2>&1
 echo
 
-# Minikube setup
-echo 'Starting Minikube clusters..'
-minikube start --profile cluster1
-sleep 4
-
 # Setting kubernetes auth for jenkins
 
 echo 'Setting Kubernetes access for jenkins..'

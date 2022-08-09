@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Git Checkout') { 
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vmunde62/vault-csi.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vmunde62/devops-task1.git']]])
             }
         }
         stage('Build docker image') {
