@@ -64,7 +64,7 @@ To
 
     trivy image --exit-code 0 --severity HIGH,CRITICAL <image name>
 
-This will allow pipeline to continue, evn if trivy finds any vulnerabilty of any level.
+This will allow pipeline to continue, even if trivy finds any vulnerabilty of any level.
 
 ## Running container as non-root
 The nginx image from official docker repository is already configured as a non-root user. So we dont have to mention different user in kubernetes deployment yaml.
