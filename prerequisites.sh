@@ -31,14 +31,6 @@ sleep 2
 sudo systemctl start jenkins > /dev/null
 echo
 
-# Install docker
-echo 'Installing Docker engine..'
-curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1
-sudo sh get-docker.sh > /dev/null 2>&1
-sudo groupadd docker > /dev/null 2>&1
-sudo usermod -aG docker $USER > /dev/null 2>&1
-echo
-
 # Install trivy
 echo 'Installing trivy..'
 wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb > /dev/null 2>&1

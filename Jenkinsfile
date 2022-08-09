@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                sh "docker build -t nginx:noroot ."
+                sh "sudo docker build -t nginx:noroot ."
             }
         }
         stage('Run trivy scan') {
