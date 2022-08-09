@@ -25,6 +25,10 @@ spec:
                 name: {{ .Values.secrets.name }}
                 key: {{ .Values.secrets.data.name }}
                 optional: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 10000
+          runAsGroup: 10000
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget

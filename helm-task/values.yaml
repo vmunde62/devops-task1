@@ -8,7 +8,7 @@ labels:
 image:
   name: nginx
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.14.2"
+  tag: "noroot"
 
 container:
   env:
