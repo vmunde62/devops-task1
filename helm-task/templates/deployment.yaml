@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.labels.appName }}-deployment
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.labels.appName }}
+  replicas: {{ .Values.autoscaling.minReplicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.labels.appName }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      containers:
+      - name: {{ .Values.labels.appName }}
+        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 80
+        env:
+          - name: {{ .Values.container.env.name }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secrets.name }}
+                key: {{ .Values.secrets.data.name }}
+                optional: false
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Values.labels.appName }}-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.labels.appName }}
