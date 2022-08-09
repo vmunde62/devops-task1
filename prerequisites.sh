@@ -17,6 +17,13 @@ sudo apt-get update > /dev/null
 sudo apt-get install -y kubectl > /dev/null
 echo
 
+# Install Helm
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list > /dev/null
+sudo apt-get update > /dev/null
+sudo apt-get install helm -y > /dev/null
+
 # Install jenkins-lts
 echo 'Installing jenkins-lts..'
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
