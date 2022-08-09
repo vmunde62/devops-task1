@@ -20,13 +20,13 @@ The Prerequisites need for installtion,
 
 ## Setting up prerequisites
 The installation instruction is for debian/ubuntu based linux distribution. 
-As docker installation requires to reboot the system, we have to install docker manually, using script.
+As docker installation requires to reboot the system, we have to first install docker, using script.
 
     curl -fsSL https://get.docker.com -o get-docker.sh
     sh get-docker.sh
   After installing docker, Reboot the system.
   
-  For remaining prerequisites, user prerequisites.sh script to install and setup remaining tools.
+  For remaining prerequisites, use **prerequisites.sh** script to install and setup remaining tools.
   
 
     ./prerequisites.sh
@@ -38,13 +38,24 @@ As docker installation requires to reboot the system, we have to install docker 
 
 After installing prerequisites, Open Jenkins webpage on http://localhost:8080 or http://[PubicIP]:8080 for server. Then unlock the jenkins and setup a jenkins account.
 
-Login to jenkins account, Then create a New pipeline job.
-Select the defination file as '**Pipeline script from SCM**' .
 
-Enter the Repository url and select the branch, Then save the pipeline. Now the pipeline setup is complete.
+Login to created jenkins account.
+
+
+Then create a New pipeline job, A configuration page will open.
+ 
+
+At the bottom of the page, Select the defination file as '**Pipeline script from SCM**' .
+
+
+Enter the This Repository url and select the main branch, Then save the pipeline. 
+
+
+This will create a New jenkins pipeline.
+
 
 ## Trivy Image scanner
-In the pipeline stages, The trivy scanner is set to fail the pipeline, if the docker image contains any vulnerabilty of level **HIGH** or **CRITICAL** so the pipeline will exit at trivy stage.
+In the pipeline stages, The trivy scanner is set to fail the pipeline, if the docker image contains any vulnerabilty of level **HIGH** or **CRITICAL** .
 
 To bypass this you can change the **--exit-code** in Jenkinsfile, from
 
@@ -53,10 +64,12 @@ To
 
     trivy image --exit-code 0 --severity HIGH,CRITICAL <image name>
 
-## Running container as non-root
-The nginx image from official docker repository is already configured as a non-root. So we dont have to mention diffrent user in kubernetes deployment yaml.
+This will allow pipeline to continue, evn if trivy finds any vulnerabilty of any level.
 
-In case if we have to use other user than root, we can configure this by adding security context in container spec in deployment yaml. The uid of the user or group need to be replaced.
+## Running container as non-root
+The nginx image from official docker repository is already configured as a non-root user. So we dont have to mention different user in kubernetes deployment yaml.
+
+In case if we have to use other user than root, we can configure this by adding security context under container spec in deployment yaml. The uid of the user or group need to be replaced.
 
     securityContext:
 	    runAsNonRoot: true
