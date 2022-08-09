@@ -6,7 +6,7 @@ labels:
   appName: nginx
 
 image:
-  name: nginx
+  name: vmunde62/nginx
   # Overrides the image tag whose default is the chart appVersion.
   tag: "noroot"
 
