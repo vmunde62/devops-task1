@@ -4,11 +4,12 @@ The task is to create Kubernetes deployment with a secret mounted as environment
 # Prerequisites
 The Prerequisites need for installtion,
     1. Docker 
-    2. Jenkins
+    2. Jenkins lts
     3. Minikube
     4. Helm
+    5. Trivy
 
-The Prerequisites needed can be installed through prerequisites.sh script file.
+The Prerequisites needed can be installed and set through prerequisites.sh script file.
 
 
 # Setup

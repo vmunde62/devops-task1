@@ -1,13 +1,13 @@
 #!/bin/bash
 # Install prerequisites required
 
-# install minikube
+# Install minikube
 echo 'Intalling minikube..'
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb > /dev/null 2>&1
 sudo dpkg -i minikube_latest_amd64.deb > /dev/null
 echo
 
-# install kubectl
+# Install kubectl
 echo 'Installing kubectl..'
 sudo apt-get update > /dev/null
 sudo apt-get install -y apt-transport-https ca-certificates curl > /dev/null
@@ -17,7 +17,7 @@ sudo apt-get update > /dev/null
 sudo apt-get install -y kubectl > /dev/null
 echo
 
-# install jenkins-lts
+# Install jenkins-lts
 echo 'Installing jenkins-lts..'
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
@@ -31,7 +31,7 @@ sleep 2
 sudo systemctl start jenkins > /dev/null
 echo
 
-# install docker
+# Install docker
 echo 'Installing Docker engine..'
 curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1
 sudo sh get-docker.sh > /dev/null 2>&1
@@ -39,6 +39,11 @@ sudo groupadd docker > /dev/null 2>&1
 sudo usermod -aG docker $USER > /dev/null 2>&1
 echo
 
+# Install trivy
+echo 'Installing trivy..'
+wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb > /dev/null 2>&1
+sudo dpkg -i trivy_0.18.3_Linux-64bit.deb > /dev/null 2>&1
+echo
 
 # Minikube setup
 echo 'Starting Minikube clusters..'
@@ -51,8 +56,6 @@ echo 'Setting Kubernetes access for jenkins..'
 sudo cp -r $HOME/.minikube /var/lib/jenkins/
 sudo cp -r $HOME/.kube /var/lib/jenkins/
 sudo sed -i "s+$HOME+/var/lib/jenkins+g" /var/lib/jenkins/.kube/config
-sudo cp /var/lib/jenkins/.kube/config output/.
-sudo chown $USER:$USER output/config
 sleep 2
 sudo chown -R jenkins:jenkins /var/lib/jenkins 
 sleep 2
