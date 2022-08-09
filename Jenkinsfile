@@ -6,14 +6,9 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vmunde62/devops-task1.git']]])
             }
         }
-        stage('Build docker image') {
-            steps {
-                sh "sudo docker build -t nginx:noroot ."
-            }
-        }
         stage('Run trivy scan') {
             steps {
-                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL nginx:noroot"
+                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL nginx:stable"
             }
         }
         stage('Deploy helm chart') {
